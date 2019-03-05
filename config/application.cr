@@ -11,6 +11,8 @@ require "../src/pipes/**"
 require "../src/controllers/application_controller"
 require "../src/controllers/**"
 
+require "../src/services/**"
+
 # About Application.cr File
 #
 # This is Amber application main entry point. This file is responsible for loading
