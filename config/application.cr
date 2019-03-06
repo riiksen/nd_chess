@@ -3,6 +3,9 @@ require "./i18n.cr"
 require "./initializers/**"
 
 require "amber"
+
+require "../src/services/**"
+
 require "../src/sockets/**"
 require "../src/channels/**"
 require "../src/models/**"
@@ -10,8 +13,6 @@ require "../src/pipes/**"
 
 require "../src/controllers/application_controller"
 require "../src/controllers/**"
-
-require "../src/services/**"
 
 # About Application.cr File
 #

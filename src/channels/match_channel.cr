@@ -1,16 +1,9 @@
 class MatchChannel < Amber::WebSockets::Channel
   # message # => {"event" => "join", "topic" => "match:lobby"}
   def handle_joined(client_socket, message)
-    if message["topic"] == "match:lobby"
-      return :ok
-    end
+    id = message["topic"].split(':')[1]
 
-    topic = message["topic"]
-
-    id = topic.split(':')[1]
-
-    # Check id
-
+    client_socket.disconnect! unless id == session[:player_uid]
   end
 
   # message # => {
@@ -23,6 +16,13 @@ class MatchChannel < Amber::WebSockets::Channel
   # }
   def handle_message(client_socket, message)
     GameSupervisor.get(message["topic"].split(':')[1]).handle(message["payload"])
+    action = message["subject"].split(':')
+
+    case action[0]
+    when "invite"
+    when "accept"
+    when "match"
+    end
 
     # case message["action"]
     # when "invite"
