@@ -31,7 +31,27 @@ class PlayerChannel < Amber::WebSockets::Channel
       })
 
     when "accept"
-      InviteSupervisor.have_correct_invite_from(from: action[1], to: session[:player_uid])
+      invite = InviteSupervisor.have_correct_invite_from(from: action[1], to: session[:player_uid])
+      unless invite
+        rebroadcast({
+          "event": "message",
+          "topic": message["topic"],
+          "subject": "accept:return",
+          "payload": {
+            "error": "you try to accept invalid or expired invite"
+          }
+        })
+      end
+
+      rebroadcast({
+        "event": "message",
+        "topic": message["topic"],
+        "subject": "action:return",
+        "payload": {
+          "error": "unrecognized action"
+        }
+      })
+
       rebroadcast({
         "event": "message",
         "topic": message["topic"],

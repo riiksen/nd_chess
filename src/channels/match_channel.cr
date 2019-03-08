@@ -35,7 +35,7 @@ class MatchChannel < Amber::WebSockets::Channel
     topics = client_socket.subscription_manager.subscriptions
     
 
-    rebroadcast! {"event": "message", "topic": ""}
+    # rebroadcast! {"event" => "message", "topic" => ""}
   end
 end
 
