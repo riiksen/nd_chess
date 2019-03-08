@@ -5,7 +5,6 @@ module InviteSupervisor
     def initialize(@from : String, @to : String, @time : Time); end
   end
 
-  # @@pending_invites = [] of NamedTuple(from: String, to: String, time: Time)
   @@pending_invites = [] of Invite
 
   def self.push(from, to)
@@ -14,7 +13,7 @@ module InviteSupervisor
 
   def self.have_correct_invite_from(from, to)
     @@pending_invites.find do |elm|
-      elm.from == from && elm.to == to && Time.now - elm.time > 5.minutes
+      elm.from == from && elm.to == to && Time.now - elm.time <= 5.minutes
     end
   end
 end

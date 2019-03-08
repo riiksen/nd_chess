@@ -4,11 +4,11 @@ class GameSupervisor
   @idle_time : Time?
   # The order of axes w - 4d, x, y, z - up/down
   @board = [] of Array(Array(Array(Symbol)))
-  @players : NamedTuple(white: String, black: String)?
+  @players = {} of Symbol => String
   @turn = :white
 
   def initialize(player1 : String, player2 : String)
-    setup_board
+    setup_4d_board
     @players[:white] = player1
     @players[:black] = player2
   end
@@ -90,8 +90,7 @@ class GameSupervisor
       end
     end
 
-    # @board
-    # board
+    @board
   end
 
   def self.[](game_id : String)
